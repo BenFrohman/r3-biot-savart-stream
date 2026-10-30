@@ -1,0 +1,12 @@
+import R3BiotSavartStream
+open R3BiotSavart
+#print axioms not_regularStreamRepresentative
+#print axioms not_kineticEnergyCurlIdentityReg
+#print axioms integrable_biotSavart_integrand
+#print axioms not_regularStreamRepresentative_of_testDirection
+#print axioms not_kineticEnergyCurlIdentityReg_of_testDirection
+#print axioms kineticEnergy_add_smul
+#print axioms hasDerivAt_kineticEnergy
+#print axioms streamRepresentative
+#print axioms gateauxOn_unique
+#print axioms kineticEnergyCurlIdentityOn
