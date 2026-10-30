@@ -14,9 +14,9 @@ There is no `sorry` and there are no custom axioms. `AxiomAudit.lean` reports on
 includes constant fields. The Biot–Savart integrand of a constant field is not integrable, so
 its Bochner integral is 0. That forces H(ω) = 0.
 
-- `not_regularStreamRepresentative_of_testDirection`: for every smooth, compactly supported,
+- `not_regularStreamRepresentative_of_divergenceFreeTestField`: for every smooth, compactly supported,
   divergence-free ω with `KineticEnergyHamiltonian ω ≠ 0`, `¬ RegularStreamRepresentative ω`.
-- `not_kineticEnergyCurlIdentityReg_of_testDirection`: in the same setting,
+- `not_kineticEnergyCurlIdentityReg_of_divergenceFreeTestField`: in the same setting,
   `¬ KineticEnergyCurlIdentityReg ω`.
 - The general forms are `not_regularStreamRepresentative` and
   `not_kineticEnergyCurlIdentityReg`. They take a differentiable ω whose BS integral converges
@@ -26,9 +26,9 @@ its Bochner integral is 0. That forces H(ω) = 0.
 
 ## 2. Corrected statement
 
-The function class and the test class are the same: `TestDirection ω` means ω is `ContDiff ℝ ∞`,
+The function class and the test class are the same: `DivergenceFreeTestField ω` means ω is `ContDiff ℝ ∞`,
 compactly supported and divergence-free. The Gâteaux derivative (`IsGateauxRepresentativeOn`) is
-tested only against `TestDirection`s.
+tested only against `DivergenceFreeTestField`s.
 
 Proved:
 - `biotSavart_add_smul`: BS is linear.
@@ -37,17 +37,17 @@ Proved:
 - `hasDerivAt_kineticEnergy`: dH(ω)[ε] = ∫⟨BSω, BSε⟩.
 
 These conditional results take the named Props in §3 as explicit hypotheses:
-- `streamRepresentative` (needs `TestVelocityL2` and `NewtonianStreamFacts ω`): there is a ψ
-  with `RegularField ψ`, ψ is a Gâteaux representative of H on test directions, curl ψ = BS ω,
+- `streamRepresentative` (needs `DivergenceFreeTestVelocityL2` and `VorticityStreamIntegrationByParts ω`): there is a ψ
+  with `RegularField ψ`, ψ is a Gâteaux representative of H on DivergenceFree test fields, curl ψ = BS ω,
   and H(ω) = ½∫⟨ψ,ω⟩.
-- `gateauxOn_unique` (needs `L2DivFreeLiouville`): regular representatives are unique.
+- `gateauxOn_unique` (needs `DivergenceFreeTestDense`): regular representatives are unique.
 - `kineticEnergyCurlIdentityOn` (needs all three Props): curl(δH/δω) = u.
 
 ## 3. Named analytic hypotheses (not proved here)
 
-- `TestVelocityL2`: BS ε ∈ L² for every test direction ε. Classically BS ε = O(|x|⁻²).
-- `NewtonianStreamFacts ω`: ∃ ψ, `RegularField ψ` ∧ curl ψ = BS ω ∧ ∀ test directions ε,
+- `DivergenceFreeTestVelocityL2`: BS ε ∈ L² for every DivergenceFree test field ε. Classically BS ε = O(|x|⁻²).
+- `VorticityStreamIntegrationByParts ω`: ∃ ψ, `RegularField ψ` ∧ curl ψ = BS ω ∧ ∀ DivergenceFree test fields ε,
   ∫⟨BSω,BSε⟩ = ∫⟨ψ,ε⟩. This is the Newtonian potential plus integration by parts with decay.
-- `L2DivFreeLiouville`: a regular field that is L²-orthogonal to all test directions is 0.
+- `DivergenceFreeTestDense`: a regular field that is L²-orthogonal to all DivergenceFree test fields is 0.
 
 This repository does not address Navier–Stokes regularity.

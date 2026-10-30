@@ -17,37 +17,37 @@ namespace R3BiotSavart
 open NavierStokes3D ArnoldGeometric FrohmanianTether
 
 /-- Smooth compactly supported divergence-free fields (the function class and the test class). -/
-def TestDirection (ε : CoadjointOrbit) : Prop :=
+def DivergenceFreeTestField (ε : CoadjointOrbit) : Prop :=
   ContDiff ℝ ⊤ ε.val ∧ HasCompactSupport ε.val
 
-theorem TestDirection.differentiable {ε : CoadjointOrbit} (h : TestDirection ε) :
+theorem DivergenceFreeTestField.differentiable {ε : CoadjointOrbit} (h : DivergenceFreeTestField ε) :
     ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x := fun i x =>
   ((EuclideanSpace.proj i : EuclideanSpace ℝ (Fin 3) →L[ℝ] ℝ).differentiableAt).comp x
     (h.1.differentiable (by simp) x)
 
-theorem TestDirection.continuous {ε : CoadjointOrbit} (h : TestDirection ε) :
+theorem DivergenceFreeTestField.continuous {ε : CoadjointOrbit} (h : DivergenceFreeTestField ε) :
     Continuous ε.val := h.1.continuous
 
-theorem TestDirection.integrable {ε : CoadjointOrbit} (h : TestDirection ε) (x : T3) :
+theorem DivergenceFreeTestField.integrable {ε : CoadjointOrbit} (h : DivergenceFreeTestField ε) (x : T3) :
     Integrable (fun y => biotSavartKernel x y • cross (ε.val y) (x - y)) NavierStokes3D.volume :=
   integrable_biotSavart_integrand h.continuous h.2 x
 
 /-- **Class-level refutation.** For every smooth compactly supported divergence-free `ω` with
 nonzero kinetic energy, the tether's `RegularStreamRepresentative ω` is false. -/
-theorem not_regularStreamRepresentative_of_testDirection {ω : CoadjointOrbit}
-    (hω : TestDirection ω) (hH : KineticEnergyHamiltonian ω ≠ 0) :
+theorem not_regularStreamRepresentative_of_divergenceFreeTestField {ω : CoadjointOrbit}
+    (hω : DivergenceFreeTestField ω) (hH : KineticEnergyHamiltonian ω ≠ 0) :
     ¬ RegularStreamRepresentative ω :=
   not_regularStreamRepresentative ω hω.differentiable hω.integrable hH
 
-theorem not_kineticEnergyCurlIdentityReg_of_testDirection {ω : CoadjointOrbit}
-    (hω : TestDirection ω) (hH : KineticEnergyHamiltonian ω ≠ 0) :
+theorem not_kineticEnergyCurlIdentityReg_of_divergenceFreeTestField {ω : CoadjointOrbit}
+    (hω : DivergenceFreeTestField ω) (hH : KineticEnergyHamiltonian ω ≠ 0) :
     ¬ KineticEnergyCurlIdentityReg ω :=
   not_kineticEnergyCurlIdentityReg ω hω.differentiable hω.integrable hH
 
-/-- Gâteaux representative tested only against `TestDirection`s. -/
+/-- Gâteaux representative tested only against `DivergenceFreeTestField`s. -/
 def IsGateauxRepresentativeOn (F : CoadjointOrbit → ℝ) (ω : CoadjointOrbit)
     (δ : T3 → EuclideanSpace ℝ (Fin 3)) : Prop :=
-  ∀ (ε : CoadjointOrbit) (_ : TestDirection ε)
+  ∀ (ε : CoadjointOrbit) (_ : DivergenceFreeTestField ε)
     (hω : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
     (hε : ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x),
     HasDerivAt (fun t : ℝ =>
@@ -92,13 +92,13 @@ theorem integral_norm_add_smul_sq {a b : T3 → EuclideanSpace ℝ (Fin 3)}
       NavierStokes3D.volume := hA.add hP'
   rw [hpt, integral_add hAP hB', integral_add hA hP', integral_const_mul, integral_const_mul]
 
-/-- Velocity of a test direction lies in `L²` (classical: `BS ε = O(|x|⁻²)` at infinity). -/
-def TestVelocityL2 : Prop :=
-  ∀ ε : CoadjointOrbit, TestDirection ε → MemLp (BiotSavart ε.val) 2 NavierStokes3D.volume
+/-- Velocity of a DivergenceFree test field lies in `L²` (classical: `BS ε = O(|x|⁻²)` at infinity). -/
+def DivergenceFreeTestVelocityL2 : Prop :=
+  ∀ ε : CoadjointOrbit, DivergenceFreeTestField ε → MemLp (BiotSavart ε.val) 2 NavierStokes3D.volume
 
 /-- **Proved expansion.** `H(ω + tε) = H ω + t ∫⟨BSω, BSε⟩ + (t²/2)‖BSε‖²`. -/
-theorem kineticEnergy_add_smul {ω ε : CoadjointOrbit} (hω : TestDirection ω)
-    (hε : TestDirection ε) (hL2 : TestVelocityL2) (t : ℝ) (p) :
+theorem kineticEnergy_add_smul {ω ε : CoadjointOrbit} (hω : DivergenceFreeTestField ω)
+    (hε : DivergenceFreeTestField ε) (hL2 : DivergenceFreeTestVelocityL2) (t : ℝ) (p) :
     KineticEnergyHamiltonian ⟨fun x => ω.val x + t • ε.val x, p⟩ =
       KineticEnergyHamiltonian ω +
         t * (∫ x, pairing (BiotSavart ω.val x) (BiotSavart ε.val x) ∂volume) +
@@ -111,8 +111,8 @@ theorem kineticEnergy_add_smul {ω ε : CoadjointOrbit} (hω : TestDirection ω)
   rw [hfun, integral_norm_add_smul_sq (hL2 ω hω) (hL2 ε hε)]
   ring
 
-theorem hasDerivAt_kineticEnergy {ω ε : CoadjointOrbit} (hω : TestDirection ω)
-    (hε : TestDirection ε) (hL2 : TestVelocityL2)
+theorem hasDerivAt_kineticEnergy {ω ε : CoadjointOrbit} (hω : DivergenceFreeTestField ω)
+    (hε : DivergenceFreeTestField ε) (hL2 : DivergenceFreeTestVelocityL2)
     (hωd : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
     (hεd : ∀ i x, DifferentiableAt ℝ (fun y => ε.val y i) x) :
     HasDerivAt (fun t : ℝ => KineticEnergyHamiltonian
@@ -132,25 +132,25 @@ theorem hasDerivAt_kineticEnergy {ω ε : CoadjointOrbit} (hω : TestDirection �
 
 /-! ### Named analytic inputs (not proved here) -/
 
-/-- **Newtonian stream facts** for `ω`: there is a regular `ψ` (classically `ψ = (-Δ)⁻¹ω`) with
+/-- **Vorticity–stream integration by parts** for `ω`: there is a regular `ψ` (classically `ψ = (-Δ)⁻¹ω`) with
 `curl ψ = BS ω`, `BS ω ∈ L²`, and the integration by parts with decay at infinity
-`∫⟨BSω, BSε⟩ = ∫⟨ψ, ε⟩` for every test direction `ε`. -/
-def NewtonianStreamFacts (ω : CoadjointOrbit) : Prop :=
+`∫⟨BSω, BSε⟩ = ∫⟨ψ, ε⟩` for every DivergenceFree test field `ε`. -/
+def VorticityStreamIntegrationByParts (ω : CoadjointOrbit) : Prop :=
   ∃ ψ : T3 → EuclideanSpace ℝ (Fin 3), RegularField ψ ∧ curl ψ = BiotSavart ω.val ∧
-    ∀ ε : CoadjointOrbit, TestDirection ε →
+    ∀ ε : CoadjointOrbit, DivergenceFreeTestField ε →
       ∫ x, pairing (BiotSavart ω.val x) (BiotSavart ε.val x) ∂volume =
         ∫ x, pairing (ψ x) (ε.val x) ∂volume
 
-/-- **L² div-free Liouville / de Rham**: a regular field orthogonal to all test directions is 0. -/
-def L2DivFreeLiouville : Prop :=
+/-- **`DivergenceFree` test fields are dense**: a regular field orthogonal to every test field is 0. -/
+def DivergenceFreeTestDense : Prop :=
   ∀ w : T3 → EuclideanSpace ℝ (Fin 3), RegularField w →
-    (∀ ε : CoadjointOrbit, TestDirection ε → ∫ x, pairing (w x) (ε.val x) ∂volume = 0) → w = 0
+    (∀ ε : CoadjointOrbit, DivergenceFreeTestField ε → ∫ x, pairing (w x) (ε.val x) ∂volume = 0) → w = 0
 
 /-! ### Main conditional theorems -/
 
 /-- **Stream representative (corrected).** -/
-theorem streamRepresentative {ω : CoadjointOrbit} (hω : TestDirection ω)
-    (hL2 : TestVelocityL2) (hN : NewtonianStreamFacts ω) :
+theorem streamRepresentative {ω : CoadjointOrbit} (hω : DivergenceFreeTestField ω)
+    (hL2 : DivergenceFreeTestVelocityL2) (hN : VorticityStreamIntegrationByParts ω) :
     ∃ ψ, RegularField ψ ∧ IsGateauxRepresentativeOn KineticEnergyHamiltonian ω ψ ∧
       curl ψ = BiotSavart ω.val ∧
       KineticEnergyHamiltonian ω = (1 / 2) * ∫ x, pairing (ψ x) (ω.val x) ∂volume := by
@@ -162,7 +162,7 @@ theorem streamRepresentative {ω : CoadjointOrbit} (hω : TestDirection ω)
     refine integral_congr_ae (Eventually.of_forall fun x => ?_)
     simp [pairing]
 
-theorem gateauxOn_unique (hLiou : L2DivFreeLiouville) {F : CoadjointOrbit → ℝ}
+theorem gateauxOn_unique (hLiou : DivergenceFreeTestDense) {F : CoadjointOrbit → ℝ}
     {ω : CoadjointOrbit} (hωd : ∀ i x, DifferentiableAt ℝ (fun y => ω.val y i) x)
     {d d' : T3 → EuclideanSpace ℝ (Fin 3)}
     (h : IsGateauxRepresentativeOn F ω d) (hr : RegularField d)
@@ -188,9 +188,9 @@ noncomputable def RegularDerivativeOn (F : CoadjointOrbit → ℝ) (ω : Coadjoi
 def KineticEnergyCurlIdentityOn (ω : CoadjointOrbit) : Prop :=
   curl (RegularDerivativeOn KineticEnergyHamiltonian ω) = velocity_from_vorticity ω
 
-/-- **Corrected curl identity**: `curl (δH/δω) = u` with derivatives tested on `TestDirection`s. -/
-theorem kineticEnergyCurlIdentityOn {ω : CoadjointOrbit} (hω : TestDirection ω)
-    (hL2 : TestVelocityL2) (hN : NewtonianStreamFacts ω) (hLiou : L2DivFreeLiouville) :
+/-- **Corrected curl identity**: `curl (δH/δω) = u` with derivatives tested on `DivergenceFreeTestField`s. -/
+theorem kineticEnergyCurlIdentityOn {ω : CoadjointOrbit} (hω : DivergenceFreeTestField ω)
+    (hL2 : DivergenceFreeTestVelocityL2) (hN : VorticityStreamIntegrationByParts ω) (hLiou : DivergenceFreeTestDense) :
     KineticEnergyCurlIdentityOn ω := by
   obtain ⟨ψ, hreg, hrep, hcurl, -⟩ := streamRepresentative hω hL2 hN
   have hex : ∃ d, IsGateauxRepresentativeOn KineticEnergyHamiltonian ω d ∧ RegularField d :=

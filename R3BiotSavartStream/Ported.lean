@@ -136,9 +136,16 @@ namespace ArnoldGeometric
 
 open NavierStokes3D
 
+/-- `DivergenceFree v` (the May 28, 2026 skeleton's predicate, `Skeleton/PaperOverview.lean`):
+`div v = 0` pointwise. -/
+def DivergenceFree (v : T3 → EuclideanSpace ℝ (Fin 3)) : Prop := ∀ x, NavierStokes3D.div v x = 0
+
+theorem divergenceFree_iff (v : T3 → EuclideanSpace ℝ (Fin 3)) :
+    DivergenceFree v ↔ ∀ x, NavierStokes3D.div v x = 0 := Iff.rfl
+
 structure CoadjointOrbit where
   val : T3 → EuclideanSpace ℝ (Fin 3)
-  property : ∀ x, NavierStokes3D.div val x = 0
+  property : DivergenceFree val
 
 open Matrix in
 noncomputable def cross (u v : EuclideanSpace ℝ (Fin 3)) : EuclideanSpace ℝ (Fin 3) :=
@@ -238,7 +245,7 @@ open MeasureTheory ArnoldGeometric NavierStokes3D
 structure RegularField (d : T3 → EuclideanSpace ℝ (Fin 3)) : Prop where
   cont : Continuous d
   diff : ∀ i x, DifferentiableAt ℝ (fun y => d y i) x
-  div_free : ∀ x, NavierStokes3D.div d x = 0
+  div_free : DivergenceFree d
   memL2 : MemLp d 2 NavierStokes3D.volume
 
 def RegularRep (F : CoadjointOrbit → ℝ) (ω : CoadjointOrbit)
