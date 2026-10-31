@@ -51,3 +51,9 @@ These conditional results take the named Props in §3 as explicit hypotheses:
 - `DivergenceFreeTestDense`: a regular field that is L²-orthogonal to all DivergenceFree test fields is 0.
 
 This repository does not address Navier–Stokes regularity.
+
+## Copyright, license and scope
+
+Copyright 2026 Benjamin Stanley Frohman (ORCID [0009-0006-7068-3718](https://orcid.org/0009-0006-7068-3718)). Licensed under the Apache License, Version 2.0; see `LICENSE` and `NOTICE`.
+
+What is proved vs. conditional: Sections 1–2 are proved; Section 3 lists named analytic hypotheses that are not proved here. Every hypothesis is a named `Prop` passed as an explicit argument. Nothing in this repository claims to solve the Clay Millennium problem or global regularity for unmodified 3D Navier–Stokes.
