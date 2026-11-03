@@ -1,0 +1,91 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\title{Verification certificate for the Lean~4 development \texttt{r3-biot-savart-stream}}
+\author{Benjamin Frohman}
+\email{frohmanbenjamin@gmail.com}
+\date{\today}
+\begin{document}
+\begin{abstract}
+This document certifies that the Lean~4 formalization in the repository \texttt{r3-biot-savart-stream} builds with its pinned toolchain, contains no \texttt{sorry} and no user-declared axioms, and that every theorem depends only on Lean's standard axioms.
+\end{abstract}
+\maketitle
+\section{Verification certificate}
+
+The formal development was machine-checked as follows.
+
+{\raggedright
+\begin{itemize}
+\item Repository:\\ {\footnotesize\url{https://github.com/BenFrohman/r3-biot-savart-stream}}
+\item Verified commit:\\ {\footnotesize\texttt{00d743e7a586de86e997780628aaa3208b1e8a27}}
+\item Lean toolchain: \texttt{leanprover/lean4:v4.30.0-rc1}
+\item Mathlib: tag \texttt{v4.30.0-rc1}, commit (from \texttt{lake-manifest.json})\\ {\footnotesize\texttt{0c154d67103f74be3a0f2c509f72ccbf5be9f2a7}}
+\item Continuous integration run (build, axiom audit, \texttt{sorry}/\texttt{axiom} scan; passed):\\ {\footnotesize\url{https://github.com/BenFrohman/r3-biot-savart-stream/actions/runs/41572324283}}
+\item SHA-256 of the GitHub source tarball of the verified commit, downloaded twice with identical result:\\ {\footnotesize\url{https://github.com/BenFrohman/r3-biot-savart-stream/archive/00d743e7a586de86e997780628aaa3208b1e8a27.tar.gz}}\\
+{\footnotesize\texttt{9130d41bb616cd51fcfdf8015c0d4e01a11193d4b501dad8acde734f4666003b}}
+\end{itemize}\par}
+
+The tarball hash refers to the verified commit rather than to a release tag, since a document cannot contain the hash of an archive that includes itself. The Lean sources are unchanged between that commit and the release tag.
+
+\textbf{The development contains no \texttt{sorry} and no user-declared axioms.} Every one of the 49 theorems and lemmas listed below depends only on Lean's standard axioms \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound} (or on none). The table is the verbatim output of \texttt{lake env lean AxiomAudit.lean} (\texttt{\#print axioms}) on the verified commit.
+
+{\footnotesize
+\begin{longtable}{p{0.55\linewidth}p{0.38\linewidth}}
+\hline
+Lean declaration & \texttt{\#print axioms} \\
+\hline\endhead
+\path{R3BiotSavart.DivergenceFreeTestField.continuous} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.DivergenceFreeTestField.differentiable} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.DivergenceFreeTestField.integrable} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.biotSavart_add_smul} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.gateauxOn_unique} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.hasDerivAt_kineticEnergy} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.integral_norm_add_smul_sq} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.kineticEnergyCurlIdentityOn} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.kineticEnergy_add_smul} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.not_kineticEnergyCurlIdentityReg_of_divergenceFreeTestField} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.not_regularStreamRepresentative_of_divergenceFreeTestField} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.streamRepresentative} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.continuous_cross} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.integrable_biotSavart_integrand} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.integrable_indicator_ball_rpow_neg_two} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.measurable_kernelProfile} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.norm_cross_le} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{ArnoldGeometric.CoadjointOrbit.property} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{ArnoldGeometric.divergenceFree_iff} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{ArnoldGeometric.gateaux_representative_unique} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{ArnoldGeometric.orbit_add_smul_div_free} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.RegularField.cont} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.RegularField.diff} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.RegularField.div_free} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.RegularField.memL2} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.kineticEnergyCurlIdentityReg_of_regularStream} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.pairing_integrable} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.regularField_sub} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.regularFunctionalDerivative_eq} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{FrohmanianTether.regularRep_unique} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{NavierStokes3D.div_add} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{NavierStokes3D.div_add_smul} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{NavierStokes3D.div_const} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{NavierStokes3D.div_smul} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{NavierStokes3D.eq_of_l2_energy_zero} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{NavierStokes3D.smul_coord} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{ArnoldGeometric.CoadjointOrbit.mk.congr_simp} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.biotSavartKernel_eq_profile} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.biotSavartKernel_of_ne'} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.cross_add_smul} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.curl_zero} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.exists_const_not_integrable} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.norm_le_sum_norm_cross} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.norm_sq_cross_single} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.not_integrable_norm_rpow_neg_two} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.not_isGateauxRepresentative_kineticEnergy} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.not_kineticEnergyCurlIdentityReg} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.not_regularStreamRepresentative} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\path{R3BiotSavart.orbit_zero_smul} & \texttt{[propext, Classical.choice, Quot.sound]} \\
+\hline
+\end{longtable}}
+
+\end{document}
