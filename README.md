@@ -1,6 +1,6 @@
 # r3-biot-savart-stream
 
-[![Lean certificate](https://github.com/BenFrohman/r3-biot-savart-stream/actions/workflows/certify.yml/badge.svg)](https://github.com/BenFrohman/r3-biot-savart-stream/actions/workflows/certify.yml)
+[![certify.yml](https://github.com/BenFrohman/r3-biot-savart-stream/actions/workflows/certify.yml/badge.svg?branch=main)](https://github.com/BenFrohman/r3-biot-savart-stream/actions/workflows/certify.yml)
 
 Lean 4 + Mathlib (v4.30.0-rc1). Setting: ℝ³ = `EuclideanSpace ℝ (Fin 3)` with Lebesgue measure.
 It covers the stream-function fact ψ = (−Δ)⁻¹ω, u = curl ψ = BS ω, H = ½‖u‖² = ½⟨ω,ψ⟩
