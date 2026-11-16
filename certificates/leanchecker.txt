@@ -1,0 +1,11 @@
+checker: leanchecker source shipped with v4.30.0-rc1 (src/lean/LeanChecker.lean), prefix match -> exact match, run with lean --run
+  patch: 93c93
+  patch: <         if !fresh && target.isPrefixOf m || target == m then
+  patch: ---
+  patch: >         if !fresh && target == m || target == m then
+R3BiotSavartStream: OK (1 module replayed)
+R3BiotSavartStream.Corrected: OK (1 module replayed)
+R3BiotSavartStream.LocalIntegrability: OK (1 module replayed)
+R3BiotSavartStream.Ported: OK (1 module replayed)
+R3BiotSavartStream.Refutation: OK (1 module replayed)
+RESULT: 5 of 5 modules replayed through the kernel, 0 failures

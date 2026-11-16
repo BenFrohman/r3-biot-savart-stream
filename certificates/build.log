@@ -1,0 +1,23 @@
+✔ [8264/8269] Built R3BiotSavartStream.Ported (4.0s)
+✔ [8265/8269] Built R3BiotSavartStream.Refutation (4.2s)
+⚠ [8266/8269] Built R3BiotSavartStream.LocalIntegrability (4.3s)
+warning: R3BiotSavartStream/LocalIntegrability.lean:41:28: try 'simp' instead of 'simpa'
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: R3BiotSavartStream/LocalIntegrability.lean:52:12: This simp argument is unused:
+  Set.indicator_of_mem (mem_ball_zero_iff.mpr h)
+
+Hint: Omit it from the simp argument list.
+  s̵i̵m̵p̵ ̵[̵S̵e̵t̵.̵i̵n̵d̵i̵c̵a̵t̵o̵r̵_̵o̵f̵_̵m̵e̵m̵ ̵(̵m̵e̵m̵_̵b̵a̵l̵l̵_̵z̵e̵r̵o̵_̵i̵f̵f̵.̵m̵p̵r̵ ̵h̵)̵,̵ ̵h̵]̵s̲i̲m̲p̲ ̲[̲h̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: R3BiotSavartStream/LocalIntegrability.lean:53:12: This simp argument is unused:
+  Set.indicator_of_notMem (fun hm => h (mem_ball_zero_iff.mp hm))
+
+Hint: Omit it from the simp argument list.
+  s̵i̵m̵p̵ ̵[̵S̵e̵t̵.̵i̵n̵d̵i̵c̵a̵t̵o̵r̵_̵o̵f̵_̵n̵o̵t̵M̵e̵m̵ ̵(̵f̵u̵n̵ ̵h̵m̵ ̵=̵>̵ ̵h̵ ̵(̵m̵e̵m̵_̵b̵a̵l̵l̵_̵z̵e̵r̵o̵_̵i̵f̵f̵.̵m̵p̵ ̵h̵m̵)̵)̵,̵ ̵h̵]̵s̲i̲m̲p̲ ̲[̲h̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [8267/8269] Built R3BiotSavartStream.Corrected (3.5s)
+✔ [8268/8269] Built R3BiotSavartStream (2.5s)
+Build completed successfully (8269 jobs).
