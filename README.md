@@ -2,6 +2,10 @@
 
 [![certify.yml](https://github.com/BenFrohman/r3-biot-savart-stream/actions/workflows/certify.yml/badge.svg?branch=main)](https://github.com/BenFrohman/r3-biot-savart-stream/actions/workflows/certify.yml)
 
+## Kernel certificate
+
+[certificates/CERTIFICATE.md](certificates/CERTIFICATE.md): commit `a823271`, `leanprover/lean4:v4.30.0-rc1`. `lake build` passes; the sorry/axiom scan finds 0 hits; **62 theorems depend only on `propext`, `Classical.choice`, `Quot.sound`**; 5 of 5 modules replayed through the kernel, 0 failures ([CI run](https://github.com/BenFrohman/r3-biot-savart-stream/actions/runs/43937843288)).
+
 Lean 4 + Mathlib (v4.30.0-rc1). Setting: ℝ³ = `EuclideanSpace ℝ (Fin 3)` with Lebesgue measure.
 It covers the stream-function fact ψ = (−Δ)⁻¹ω, u = curl ψ = BS ω, H = ½‖u‖² = ½⟨ω,ψ⟩
 behind `RegularStreamRepresentative` in the tether development (commit 81357f6). The definitions
