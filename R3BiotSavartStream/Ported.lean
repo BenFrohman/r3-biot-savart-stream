@@ -1,13 +1,16 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
-Author: Benjamin Stanley Frohman.
-
-# Definitions ported verbatim from `BenFrohman/frohmanian-symplectic-tether-regularity`
-(commit `81357f6`: `NS_Equations.lean`, `ArnoldGeometric.lean`, `GateauxRepresentative.lean`).
-Module keywords (`public`, `@[expose]`) are dropped; statements and bodies are unchanged.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import Mathlib
+
+/-!
+# R3BiotSavartStream.Ported
+
+Machine-checked Lean 4 module.
+-/
 
 open MeasureTheory
 

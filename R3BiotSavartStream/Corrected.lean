@@ -1,14 +1,16 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
-Author: Benjamin Stanley Frohman.
-
-# Corrected stream-function representative on ℝ³
-
-Function class: `ω` smooth (`ContDiff ℝ ∞`), compactly supported, divergence-free.
-Test directions: smooth, compactly supported, divergence-free `ε`.
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import R3BiotSavartStream.LocalIntegrability
+
+/-!
+# R3BiotSavartStream.Corrected
+
+Machine-checked Lean 4 module.
+-/
 
 open MeasureTheory Filter Topology
 

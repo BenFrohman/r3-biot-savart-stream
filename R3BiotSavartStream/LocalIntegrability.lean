@@ -1,11 +1,16 @@
 /-
 Copyright (c) 2026 Benjamin Stanley Frohman. All rights reserved.
-Released under Apache 2.0 license.
-Author: Benjamin Stanley Frohman.
-
-# Local integrability of the Biot–Savart integrand for continuous compactly supported fields
+Released under Apache 2.0 license as described in the file LICENSE.
+Authors: Benjamin Stanley Frohman
 -/
+
 import R3BiotSavartStream.Refutation
+
+/-!
+# R3BiotSavartStream.LocalIntegrability
+
+Machine-checked Lean 4 module.
+-/
 
 open MeasureTheory Filter Topology
 
